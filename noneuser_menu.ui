@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="telegram_link">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>460</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/6422206.png</normaloff>../../Pictures/6422206.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="vk_link">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>460</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/6422212.png</normaloff>../../Pictures/6422212.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="github_link">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>460</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/6424084.png</normaloff>../../Pictures/6424084.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="ask_autors">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>460</y>
+      <width>51</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/3916693.png</normaloff>../../Pictures/3916693.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="start_but">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>100</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>  START</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/star.png</normaloff>../../Pictures/star.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dictionary">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>184</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> DICTIONARY</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Downloads/free-icon-font-book-bookmark-7720291.png</normaloff>../../Downloads/free-icon-font-book-bookmark-7720291.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="flashcards">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>270</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> FLASHCARDS</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Downloads/free-icon-font-mind-share-7928261.png</normaloff>../../Downloads/free-icon-font-mind-share-7928261.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="settings">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>360</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> SETTINGS</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/3917035.png</normaloff>../../Pictures/3917035.png</iconset>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="login_but">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>450</y>
+      <width>331</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> LOGIN</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/personmen.png</normaloff>../../Pictures/personmen.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

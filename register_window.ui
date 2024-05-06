@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLineEdit" name="username_new">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>100</y>
+      <width>381</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string> username</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="email_new">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>190</y>
+      <width>381</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string> e-mail</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="password_new">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>280</y>
+      <width>381</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string> password (8 symbols and more)</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="register_new">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>390</y>
+      <width>381</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> REGISTER</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../Pictures/pen_and_note.png</normaloff>../../Pictures/pen_and_note.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
