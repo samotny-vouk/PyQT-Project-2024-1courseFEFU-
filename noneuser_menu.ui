@@ -30,6 +30,12 @@
      <iconset>
       <normaloff>../../Pictures/6422206.png</normaloff>../../Pictures/6422206.png</iconset>
     </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
    </widget>
    <widget class="QPushButton" name="vk_link">
     <property name="geometry">
@@ -46,6 +52,12 @@
     <property name="icon">
      <iconset>
       <normaloff>../../Pictures/6422212.png</normaloff>../../Pictures/6422212.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="github_link">
@@ -64,6 +76,12 @@
      <iconset>
       <normaloff>../../Pictures/6424084.png</normaloff>../../Pictures/6424084.png</iconset>
     </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
    </widget>
    <widget class="QPushButton" name="ask_autors">
     <property name="geometry">
@@ -80,6 +98,12 @@
     <property name="icon">
      <iconset>
       <normaloff>../../Pictures/3916693.png</normaloff>../../Pictures/3916693.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="start_but">
