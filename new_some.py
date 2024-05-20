@@ -1,5 +1,6 @@
 import sys
 import webbrowser
+import db_handler
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
@@ -12,7 +13,21 @@ class MainWindow(QMainWindow):
         loadUi("noneuser_menu.ui", self)
         self.login_but.clicked.connect(lambda: toNext(LoginWindow))
 
-        self.dictionary.clicked.connect(lambda: toNext(AdvDictionary))
+        self.dictionary.clicked.connect(lambda: toNext(BaseDictionary))
+
+        self.vk_link.clicked.connect(lambda: webbrowser.open('#'))
+        self.github_link.clicked.connect(
+            lambda: webbrowser.open('https://github.com/samotny-vouk/PyQT-Project-2024-1courseFEFU-'))
+        self.telegram_link.clicked.connect(lambda: webbrowser.open('https://t.me/+QUVnH3rO-D80ZWYy'))
+
+
+class MainLogged(QMainWindow):
+    def __init__(self):
+        super(MainLogged, self).__init__()
+        loadUi("adv_user_menu.ui", self)
+        self.login_but.clicked.connect(lambda: toNext(LoginWindow))
+        self.login_but.setText()
+        self.dictionary_adv.clicked.connect(lambda: toNext(AdvDictionary))
 
         self.vk_link.clicked.connect(lambda: webbrowser.open('#'))
         self.github_link.clicked.connect(
@@ -25,16 +40,16 @@ class LoginWindow(QMainWindow):
         super(LoginWindow, self).__init__()
         loadUi("login_window.ui", self)
 
-        self.pushButton.clicked.connect(self.goToRegister)
+        name_or_mail = self.email_login.text()
+        password = self.password_login.text()
+        is_logged = db_handler.login(name_or_mail, password)
+        if is_logged:
+            self.login_try.clicked.connect(lambda: toNext(MainLogged))
+        else:
+            self.login_try.clicked.connect(lambda: toNext(RegisterWindow))
+
+        self.to_register.clicked.connect(self.goToRegister)
         self.back.clicked.connect(lambda: toBack())
-
-    def gotoWindow(self):
-        # mainWindow = MainWindow()
-        # widget.addWidget(mainWindow)
-        # widget.setCurrentIndex(widget.currentIndex() + 1)
-        # print(widget.size())
-        pass
-
 
     def goToRegister(self):
         registerWindow = RegisterWindow()
@@ -42,18 +57,20 @@ class LoginWindow(QMainWindow):
         widget.setCurrentIndex(widget.currentIndex() + 1)
 
 
-
 class RegisterWindow(QMainWindow):
     def __init__(self):
         super(RegisterWindow, self).__init__()
         loadUi("register_window.ui", self)
         self.back.clicked.connect(lambda: toBack())
-        #self.pushButton.clicked.connect(self.gotowindow2)
 
-    # def gotowindow2(self):
-    #     screen2 = SecondWindow()
-    #     widget.addWidget(screen2)
-    #     widget.setCurrentIndex(widget.currentIndex() + 1)
+
+class BaseDictionary(QMainWindow):
+    def __init__(self):
+        super(BaseDictionary, self).__init__()
+        loadUi("dictionary_noneuser.ui", self)
+        #self.to_add_word.clicked.connect(self.goToAddingWords)
+        self.back.clicked.connect(lambda: toBack())
+        # self.back1.clicked.connect(self.gotoMainWindow)
 
 
 class AdvDictionary(QMainWindow):
@@ -82,6 +99,7 @@ def toNext(WindowNext):
     windowNext = WindowNext()
     widget.addWidget(windowNext)
     widget.setCurrentIndex(widget.currentIndex() + 1)
+
 
 def toBack():
     if widget.count() > 1:
