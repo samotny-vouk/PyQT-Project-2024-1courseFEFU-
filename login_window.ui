@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLineEdit" name="email_new">
+   <widget class="QLineEdit" name="email_login">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -27,7 +27,7 @@
      <string> Enter your username or e-mail</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="password_new">
+   <widget class="QLineEdit" name="password_login">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -40,7 +40,7 @@
      <string> Enter your password</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="register_new">
+   <widget class="QPushButton" name="login_try">
     <property name="geometry">
      <rect>
       <x>200</x>
@@ -60,7 +60,7 @@
       <normaloff>../../Pictures/museum.png</normaloff>../../Pictures/museum.png</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="to_register">
     <property name="geometry">
      <rect>
       <x>200</x>

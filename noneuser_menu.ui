@@ -137,7 +137,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Downloads/free-icon-font-book-bookmark-7720291.png</normaloff>../../Downloads/free-icon-font-book-bookmark-7720291.png</iconset>
+      <normaloff>img/free-icon-font-book-bookmark-7720291.png</normaloff>img/free-icon-font-book-bookmark-7720291.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="flashcards">

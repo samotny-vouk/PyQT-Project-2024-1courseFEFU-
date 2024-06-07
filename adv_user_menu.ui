@@ -28,7 +28,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/6422206.png</normaloff>../../Pictures/6422206.png</iconset>
+      <normaloff>img/6422206.png</normaloff>img/6422206.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -51,7 +51,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/6422212.png</normaloff>../../Pictures/6422212.png</iconset>
+      <normaloff>img/6422212.png</normaloff>img/6422212.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -74,7 +74,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/6424084.png</normaloff>../../Pictures/6424084.png</iconset>
+      <normaloff>img/6424084.png</normaloff>img/6424084.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -97,7 +97,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/3916693.png</normaloff>../../Pictures/3916693.png</iconset>
+      <normaloff>img/3916693.png</normaloff>img/3916693.png</iconset>
     </property>
     <property name="iconSize">
      <size>
@@ -120,7 +120,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/star.png</normaloff>../../Pictures/star.png</iconset>
+      <normaloff>img/star.png</normaloff>img/star.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="dictionary_adv">
@@ -137,7 +137,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Downloads/free-icon-font-book-bookmark-7720291.png</normaloff>../../Downloads/free-icon-font-book-bookmark-7720291.png</iconset>
+      <normaloff>img/free-icon-font-book-bookmark-7720291.png</normaloff>img/free-icon-font-book-bookmark-7720291.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="flashcards_adv">
@@ -154,7 +154,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Downloads/free-icon-font-mind-share-7928261.png</normaloff>../../Downloads/free-icon-font-mind-share-7928261.png</iconset>
+      <normaloff>img/free-icon-font-mind-share-7928261.png</normaloff>img/free-icon-font-mind-share-7928261.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="settings">
@@ -171,7 +171,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/3917035.png</normaloff>../../Pictures/3917035.png</iconset>
+      <normaloff>img/3917035.png</normaloff>img/3917035.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="login_but">
@@ -184,11 +184,11 @@
      </rect>
     </property>
     <property name="text">
-     <string> username</string>
+     <string> YOU LOGGED</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/circles.png</normaloff>../../Pictures/circles.png</iconset>
+      <normaloff>img/circles.png</normaloff>img/circles.png</iconset>
     </property>
    </widget>
   </widget>

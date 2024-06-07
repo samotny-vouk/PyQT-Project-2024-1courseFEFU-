@@ -148,7 +148,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/plus_in_circle.png</normaloff>../../Pictures/plus_in_circle.png</iconset>
+      <normaloff>img/plus_in_circle.png</normaloff>img/plus_in_circle.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="back">
