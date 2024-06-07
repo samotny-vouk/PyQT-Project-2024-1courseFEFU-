@@ -16,7 +16,7 @@ def login(name_or_mail, passw, signal, bool_signal):
     if value and value[0][3] == value1:
         # print(is_logged)
         bool_signal.emit(True)
-        signal.emit('Вход выполнен')
+        # signal.emit('Вход выполнен')
     else:
         bool_signal.emit(False)
         signal.emit('Введён неправильный логин или пaроль')
