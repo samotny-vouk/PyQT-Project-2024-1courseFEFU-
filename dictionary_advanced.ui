@@ -28,7 +28,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/find.png</normaloff>../../Pictures/find.png</iconset>
+      <normaloff>img/find.png</normaloff>img/find.png</iconset>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -139,7 +139,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/plus_in_circle.png</normaloff>../../Pictures/plus_in_circle.png</iconset>
+      <normaloff>img/plus_in_circle.png</normaloff>img/plus_in_circle.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="back">
@@ -153,6 +153,29 @@
     </property>
     <property name="text">
      <string>Back</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="to_change_word">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>510</y>
+      <width>301</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string> CHANGE THE WORD INFORM</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/update.png</normaloff>img/update.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>15</width>
+      <height>15</height>
+     </size>
     </property>
    </widget>
   </widget>

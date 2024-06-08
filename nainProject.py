@@ -1,5 +1,5 @@
 import sys
-import sqlite3
+# import sqlite3
 import webbrowser
 from check_db import *
 import db_handler1
@@ -26,6 +26,8 @@ class MainWindow(QMainWindow):
         self.github_link.clicked.connect(
             lambda: webbrowser.open('https://github.com/samotny-vouk/PyQT-Project-2024-1courseFEFU-'))
         self.telegram_link.clicked.connect(lambda: webbrowser.open('https://t.me/+QUVnH3rO-D80ZWYy'))
+        self.ask_autors.clicked.connect(
+            lambda: webbrowser.open('https://www.riverbankcomputing.com/static/Docs/PyQt5/'))
 
 
 class MainLogged(QMainWindow):
@@ -42,6 +44,7 @@ class MainLogged(QMainWindow):
         self.github_link.clicked.connect(
             lambda: webbrowser.open('https://github.com/samotny-vouk/PyQT-Project-2024-1courseFEFU-'))
         self.telegram_link.clicked.connect(lambda: webbrowser.open('https://t.me/+QUVnH3rO-D80ZWYy'))
+        self.ask_autors.clicked.connect(lambda: webbrowser.open('https://www.riverbankcomputing.com/static/Docs/PyQt5/'))
 
 
 class StartWindow(QMainWindow):
@@ -271,11 +274,13 @@ class BaseDictionary(QMainWindow):
     #     result = cur2.execute(req, (category,)).fetchall()
     #
 
+
 class AdvDictionary(QMainWindow):
     def __init__(self):
         super(AdvDictionary, self).__init__()
         loadUi("dictionary_advanced.ui", self)
         self.to_add_word.clicked.connect(lambda: toNext(AddingWords))
+        self.to_change_word.clicked.connect(lambda: toNext(ChangingWords))
         self.back.clicked.connect(lambda: toBack())
         # self.back1.clicked.connect(self.gotoMainWindow)
 
@@ -286,6 +291,7 @@ class AddingWords(QMainWindow):
         loadUi("adding_new_word.ui", self)
 
         self.add_word.clicked.connect(self.auth)
+        self.back.clicked.connect(lambda: toBack())
 
     def auth(self):
         word = self.word_input.text()
@@ -298,19 +304,49 @@ class AddingWords(QMainWindow):
         v = self.is_verb.isChecked()
         abbr = self.is_abbreviation.isChecked()
 
-        sav = 0
+        sav = '0'
         if s:
-            sav = 1
+            sav = '1'
         elif a:
-            sav = 2
+            sav = '2'
         elif v:
-            sav = 3
+            sav = '3'
         elif abbr:
-            sav = 4
+            sav = '4'
 
         db_handler1.new_word(word, translate1, translate2, sav, sentence, imgLink)
 
+
+class ChangingWords(QMainWindow):
+    def __init__(self):
+        super(ChangingWords, self).__init__()
+        loadUi("changing_word.ui", self)
+
+        self.change_word.clicked.connect(self.auth)
         self.back.clicked.connect(lambda: toBack())
+
+    def auth(self):
+        word = self.word_input.text()
+        translate1 = self.translation1_input.text()
+        translate2 = self.translation2_input.text()
+        sentence = self.sentence_input.toPlainText()
+        imgLink = self.image_link_input.text()
+        s = self.is_subject.isChecked()
+        a = self.is_adjective.isChecked()
+        v = self.is_verb.isChecked()
+        abbr = self.is_abbreviation.isChecked()
+
+        sav = '0'
+        if s:
+            sav = '1'
+        elif a:
+            sav = '2'
+        elif v:
+            sav = '3'
+        elif abbr:
+            sav = '4'
+
+        db_handler1.change_word(word, translate1, translate2, sav, sentence, imgLink)
 
 
 def toNext(WindowNext):
@@ -327,8 +363,8 @@ def toBack():
 
 app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
-mainwindow1 = MainWindow()
-widget.addWidget(mainwindow1)
+main_window = MainWindow()
+widget.addWidget(main_window)
 widget.setFixedWidth(800)
 widget.setFixedHeight(600)
 widget.show()

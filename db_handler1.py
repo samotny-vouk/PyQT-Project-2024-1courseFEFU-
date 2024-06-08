@@ -41,11 +41,24 @@ def register(login, mail, passw, signal, bool_signal):
 
 def new_word(word, translate1, translate2, sav, sentence, imgLink):
     cur.execute(f'SELECT * FROM Words WHERE word="{word}"')
-    value = cur.fetchone()
+    value = cur.fetchall()
 
     if value:
         print("The word is already in dictionary")
     else:
-        cur.execute(f"INSERT INTO Words(word, translation1, translation2, category, sentence, imageLink) VALUES('{word}', '{translate1}', '{translate2}, {sav}, {sentence}, {imgLink}')")
-        db.commit()
         print("The insertion completed")
+        cur.execute(f"INSERT INTO Words(word, translation1, translation2, category, sentence, imageLink) VALUES('{word}', '{translate1}', '{translate2}', '{sav}', '{sentence}', '{imgLink}')")
+        db.commit()
+
+
+def change_word(word, translate1, translate2, sav, sentence, imgLink):
+    cur.execute(f'SELECT * FROM Words WHERE word="{word}"')
+    value = cur.fetchall()
+
+    if value:
+        cur.execute(f"UPDATE Words translation1 = '{translate1}', translation2 = '{translate2}', category = '{sav}', sentence = '{sentence}', imageLink = '{imgLink}' WHERE word = '{word}'")
+        db.commit()
+        print("The update completed")
+    else:
+        print("The word is not in dictionary")
+
