@@ -1,13 +1,11 @@
 import sys
-# import sqlite3
 import webbrowser
 from check_db import *
 import db_handler1
 
-
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import *
+# from PyQt5.QtCore import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
 
 

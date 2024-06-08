@@ -56,7 +56,7 @@ def change_word(word, translate1, translate2, sav, sentence, imgLink):
     value = cur.fetchall()
 
     if value:
-        cur.execute(f"UPDATE Words translation1 = '{translate1}', translation2 = '{translate2}', category = '{sav}', sentence = '{sentence}', imageLink = '{imgLink}' WHERE word = '{word}'")
+        cur.execute(f"UPDATE Words SET translation1 = '{translate1}', translation2 = '{translate2}', category = '{sav}', sentence = '{sentence}', imageLink = '{imgLink}' WHERE word = '{word}'")
         db.commit()
         print("The update completed")
     else:
