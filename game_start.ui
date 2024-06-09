@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="subjects">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -27,7 +27,7 @@
      <string>subjects</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="subjects_first">
+   <widget class="QPushButton" name="sub_1">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -45,12 +45,12 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>32</width>
-      <height>32</height>
+      <width>40</width>
+      <height>40</height>
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="subject_second">
+   <widget class="QPushButton" name="sub_2">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -64,16 +64,16 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../Pictures/network.png</normaloff>../../Pictures/network.png</iconset>
+      <normaloff>img/safe_papers.png</normaloff>img/safe_papers.png</iconset>
     </property>
     <property name="iconSize">
      <size>
-      <width>32</width>
-      <height>32</height>
+      <width>40</width>
+      <height>40</height>
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="adj_1">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -83,10 +83,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/load.png</normaloff>img/load.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="adjectives">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -99,7 +109,7 @@
      <string>adjectives</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="adj_2">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -109,10 +119,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/projecting.png</normaloff>img/projecting.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QPushButton" name="verb_1">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -122,10 +142,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/eye.png</normaloff>img/eye.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>50</width>
+      <height>50</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_8">
+   <widget class="QPushButton" name="verbs">
     <property name="geometry">
      <rect>
       <x>80</x>
@@ -138,7 +168,7 @@
      <string>verbs</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_9">
+   <widget class="QPushButton" name="verb_2">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -148,10 +178,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/time_money.png</normaloff>img/time_money.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="subject_forth">
+   <widget class="QPushButton" name="sub_4">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -161,10 +201,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/dect.png</normaloff>img/dect.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_11">
+   <widget class="QPushButton" name="adj_3">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -174,10 +224,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/goal.png</normaloff>img/goal.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_12">
+   <widget class="QPushButton" name="adj_5">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -187,10 +247,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/thoughts.png</normaloff>img/thoughts.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="subject_third">
+   <widget class="QPushButton" name="sub_3">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -208,12 +278,12 @@
     </property>
     <property name="iconSize">
      <size>
-      <width>32</width>
-      <height>32</height>
+      <width>40</width>
+      <height>40</height>
      </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_14">
+   <widget class="QPushButton" name="verb_5">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -223,10 +293,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/network.png</normaloff>img/network.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_15">
+   <widget class="QPushButton" name="verb_4">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -236,10 +316,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/working_mech.png</normaloff>img/working_mech.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_16">
+   <widget class="QPushButton" name="sub_5">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -249,10 +339,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/search_analize.png</normaloff>img/search_analize.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>40</width>
+      <height>40</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_17">
+   <widget class="QPushButton" name="verb_3">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -262,10 +362,20 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/bingo.png</normaloff>img/bingo.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_18">
+   <widget class="QPushButton" name="adj_4">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -275,7 +385,17 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>img/progressing.png</normaloff>img/progressing.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>45</width>
+      <height>45</height>
+     </size>
     </property>
    </widget>
    <widget class="QPushButton" name="back">
