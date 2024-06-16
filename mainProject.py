@@ -1,16 +1,17 @@
 import sys
+import random
 import webbrowser
 
 import levels
+import dbHandler
 from dbCheck import *
 from qt_material import apply_stylesheet
 
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
-# from PyQt5.QtCore import *
-from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
 dark_theme = False
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -57,7 +58,7 @@ class StartWindow(QMainWindow):
         self.adjectives.clicked.connect(lambda: webbrowser.open('https://en.wikipedia.org/wiki/Adjective'))
         self.verbs.clicked.connect(lambda: webbrowser.open('https://en.wikipedia.org/wiki/Verb'))
 
-        self.sub_1.clicked.connect(lambda: toNext(levels.level1_sub))
+        self.sub_1.clicked.connect(lambda: toNext(Level_1))
         self.sub_2.clicked.connect(lambda: toNext(levels.level2_sub))
         self.sub_3.clicked.connect(lambda: toNext(levels.level3_sub))
         self.sub_4.clicked.connect(lambda: toNext(levels.level4_sub))
@@ -76,6 +77,71 @@ class StartWindow(QMainWindow):
         self.verb_5.clicked.connect(lambda: toNext(levels.level5_verb))
 
         self.back.clicked.connect(lambda: toBack())
+
+
+class Level_1(QMainWindow):
+    def __init__(self):
+        super(Level_1, self).__init__()
+        loadUi("level_1_1.ui", self)
+        cur.execute("SELECT * FROM Words WHERE categoryID = 1")
+        rows = cur.fetchall()
+        self.back.clicked.connect(lambda: toBack())
+
+        self.dictOFWords = dict()
+        for row in rows:
+            key = row[0]
+            values = (row[1], row[2])
+            self.dictOFWords[key] = values
+        self.set_text(self.dictOFWords)
+        self.buttonGroup.buttonClicked.connect(lambda btn: self.checking_truth(btn))
+
+    def checking_truth(self, rb):
+        selected_answer = rb.text()
+
+        for key, val in self.dictOFWords.items():
+            if val[1] == selected_answer:
+                question = val[0]
+
+                if question == self.word.text():
+                    self.buttonGroup.setExclusive(False)
+                    rb.setChecked(False)
+                    self.buttonGroup.setExclusive(True)
+                    selected_answer = ''
+                    self.set_text(self.dictOFWords)
+                    print('Correct')
+                    return
+
+        QMessageBox.about(self, "Notification", "Неверно")
+        print('Incorrect')
+
+    def set_text(self, dictWithWord):
+        keys = list(dictWithWord.keys())
+        random_key = random.choice(keys)
+        question = dictWithWord[random_key][0]
+        answer = dictWithWord[random_key][1]
+        rand = random.randint(0, 3)
+
+        item = self.layoutWithAnswer.itemAtPosition(rand, 0)
+        if item:
+            label_answ = item.widget()
+            label_answ.setText(answer)
+        self.word.setText(question)
+
+        answers = []
+        for i in range(0, 4):
+            if i == rand:
+                answers.append(answer)
+            else:
+                label_answ_text = label_answ.text() if 'label_answ' in locals() else ''
+                other_answer = dictWithWord[random.choice(keys)][1]
+                while other_answer == answer or other_answer in answers or other_answer == label_answ_text:
+                    other_answer = dictWithWord[random.choice(keys)][1]
+                answers.append(other_answer)
+
+        for i in range(4):
+            item = self.layoutWithAnswer.itemAt(i)
+            if item and item.widget():
+                item.widget().setText(answers[i])
 
 
 class CardsWindow(QMainWindow):
@@ -119,11 +185,13 @@ class SetWindow(QMainWindow):
 
         self.back.clicked.connect(lambda: toBack())
 
-    def darkMode(self):
+    @staticmethod
+    def darkMode():
         global dark_theme
         dark_theme = True
 
-    def lightMode(self):
+    @staticmethod
+    def lightMode():
         global dark_theme
         dark_theme = False
 
@@ -208,45 +276,52 @@ class BaseDictionary(QMainWindow):
     def __init__(self):
         super(BaseDictionary, self).__init__()
         loadUi("dictionary_noneuser.ui", self)
+        self.params = {}
+        self.con = sqlite3.connect('project2024.db')
+        self.back.clicked.connect(lambda: toBack())
 
-        # self.params = {}
+        self.selectGenres()
+        self.search_2.clicked.connect(self.select)
 
-        #
-        # self.comboBox = QtWidgets.QComboBox(self)
-        # self.comboBox.setGeometry(QtCore.QRect(10, 10, 160, 20))
-        # self.selectGenres()
-        #
-        self.search.clicked.connect(self.select)
+        self.search.clicked.connect(self.searchWord)
 
         self.tableWidget.setColumnCount(1)
-        self.tableWidget.setHorizontalHeaderLabels(["WORDS TO LEARN"])
+        self.tableWidget.setHorizontalHeaderLabels(["* * *"])
         self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
         self.tableWidget.verticalHeader().setVisible(False)
+        self.tableWidget.setStyleSheet("font-size: 12pt;")
 
-        # self.to_add_word.clicked.connect(self.goToAddingWords)
-        self.back.clicked.connect(lambda: toBack())
-        # self.back1.clicked.connect(self.gotoMainWindow)
+    def selectGenres(self):
+        req = "SELECT * FROM Categories"
+        curs = self.con.cursor()
+        for value, key in curs.execute(req).fetchall():
+            self.params[key] = value
+        self.comboBox.addItems(list(self.params.keys()))
 
-    # def selectGenres(self):
-    #     req = "SELECT * from Words"
-    #     cur1 = self.db.cursor()
-    #     for category, wordID in cur1.execute(req).fetchall():
-    #         self.params[wordID] = category
-    #     self.comboBox.addItems(list(self.params.keys()))
-    #
     def select(self):
-        data = sqlite3.connect('project2024.db')
-        cursor = data.cursor()
-        result = cursor.execute(f'SELECT * FROM Words WHERE category == 1').fetchall()
+        req = "SELECT * FROM Words WHERE categoryID = ?"
+
+        genre = self.params.get(self.comboBox.currentText())
+        genre_1 = int(genre)
+        curs = self.con.cursor()
+        result = curs.execute(req, (genre_1,)).fetchall()
         self.tableWidget.setRowCount(len(result))
+        self.tableWidget.setColumnCount(7)
         for i, row in enumerate(result):
-            item = QTableWidgetItem(row[0])
-            self.tableWidget.setItem(i, 0, item)
-    #     req = "SELECT * FROM Words WHERE category = ?"
-    #     category = self.params.get(self.comboBox.currentText())
-    #     cur2 = self.db.cursor()
-    #     result = cur2.execute(req, (category,)).fetchall()
-    #
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.tableWidget.setItem(i, j, item)
+
+    def searchWord(self):
+        res = "SELECT * FROM Words WHERE word LIKE ?"
+        word_entered = self.enter_a_word.text()
+        curs = self.con.cursor()
+        result = curs.execute(res, (word_entered,)).fetchall()
+        self.tableWidget.setColumnCount(7)
+        for i, row in enumerate(result):
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.tableWidget.setItem(i, j, item)
 
 
 class AdvDictionary(QMainWindow):
@@ -256,8 +331,50 @@ class AdvDictionary(QMainWindow):
         self.to_add_word.clicked.connect(lambda: toNext(AddingWords))
         self.to_change_word.clicked.connect(lambda: toNext(ChangingWords))
         self.back.clicked.connect(lambda: toBack())
-        # self.back1.clicked.connect(self.gotoMainWindow)
 
+        self.params = {}
+        self.con = sqlite3.connect('project2024.db')
+
+        self.selectGenres()
+        self.search_2.clicked.connect(self.select)
+        self.search.clicked.connect(self.searchWord)
+
+        self.tableWidget.setColumnCount(1)
+        self.tableWidget.setHorizontalHeaderLabels(["* * *"])
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.tableWidget.verticalHeader().setVisible(False)
+        self.tableWidget.setStyleSheet("font-size: 12pt;")
+
+    def selectGenres(self):
+        req = "SELECT * FROM Categories"
+        curs = self.con.cursor()
+        for value, key in curs.execute(req).fetchall():
+            self.params[key] = value
+        self.comboBox.addItems(list(self.params.keys()))
+
+    def select(self):
+        req = "SELECT word, translation1, translation2, imageLink, sentence FROM Words WHERE categoryID = ?"
+
+        genre = self.params.get(self.comboBox.currentText())
+        genre_1 = int(genre)
+        curs = self.con.cursor()
+        result = curs.execute(req, (genre_1,)).fetchall()
+        self.tableWidget.setRowCount(len(result))
+        self.tableWidget.setColumnCount(5)
+        for i, row in enumerate(result):
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.tableWidget.setItem(i, j, item)
+
+    def searchWord(self):
+        res = "SELECT * FROM Words WHERE word = ?"
+        word_entered = self.enter_a_word.text()
+        curs = self.con.cursor()
+        result = curs.execute(res, (word_entered,)).fetchall()
+        for i, row in enumerate(result):
+            item = QTableWidgetItem(row[2])
+            self.tableWidget.setItem(i, 2, item)
+        pass
 
 class AddingWords(QMainWindow):
     def __init__(self):
@@ -290,15 +407,15 @@ class AddingWords(QMainWindow):
         v = self.is_verb.isChecked()
         abbr = self.is_abbreviation.isChecked()
 
-        sav = '0'
+        sav = 0
         if s:
-            sav = '1'
+            sav = 1
         elif a:
-            sav = '2'
+            sav = 2
         elif v:
-            sav = '3'
+            sav = 3
         elif abbr:
-            sav = '4'
+            sav = 4
 
         self.check_db.thr_new(word, translate1, translate2, sav, sentence, imgLink)
 
@@ -334,15 +451,15 @@ class ChangingWords(QMainWindow):
         v = self.is_verb.isChecked()
         abbr = self.is_abbreviation.isChecked()
 
-        sav = '0'
+        sav = 0
         if s:
-            sav = '1'
+            sav = 1
         elif a:
-            sav = '2'
+            sav = 2
         elif v:
-            sav = '3'
+            sav = 3
         elif abbr:
-            sav = '4'
+            sav = 4
 
         self.check_db.thr_update(word, translate1, translate2, sav, sentence, imgLink)
 
