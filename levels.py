@@ -16,10 +16,6 @@ db = sqlite3.connect('project2024.db')
 cur = db.cursor()
 
 
-class level_logic(QMainWindow):
-    pass
-
-
 class level1_sub(QMainWindow):
     def __init__(self):
         super(level1_sub, self).__init__()
@@ -307,3 +303,7 @@ class level1_verb(QMainWindow):
 #     def __init__(self):
 #         super(level5_verb, self).__init__()
 #         loadUi("quiz.ui", self)
+
+
+class level_logic(QMainWindow):
+    pass

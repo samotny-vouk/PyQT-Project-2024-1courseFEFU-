@@ -1,5 +1,6 @@
 import hashlib
 import sqlite3
+import re
 db = sqlite3.connect('project2024.db')
 cur = db.cursor()
 
@@ -23,6 +24,13 @@ def login(name_or_mail, passw, signal, bool_signal):
 
 
 def register(login, mail, passw, signal, bool_signal):
+    # email_valid = True
+    pattern = r"^[-\w\.]+@([-\w]+\.)+[-\w]{2,4}$"
+    if re.match(pattern, mail) is not None:
+        global email_valid
+        email_valid = True
+    else:
+        email_valid = False
     cur.execute(f'SELECT * FROM Users WHERE userName="{login}" OR userMail="{mail}"')
     value = cur.fetchone()
 
@@ -30,6 +38,8 @@ def register(login, mail, passw, signal, bool_signal):
     if value:
         bool_signal.emit(True)
         signal.emit("Учётная запись '{mail}' уже существует. Предлагаем войти")
+    elif not value and not email_valid:
+        signal.emit('Введите валидную почту')
     else:
         cur.execute(f"INSERT INTO Users(userName, userMail, userHash) VALUES('{login}', '{mail}', '{value1}')")
         bool_signal.emit(False)

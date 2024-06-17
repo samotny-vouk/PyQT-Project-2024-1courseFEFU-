@@ -10,7 +10,7 @@ from qt_material import apply_stylesheet
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
-dark_theme = True
+dark_theme = False
 
 
 class MainWindow(QMainWindow):
@@ -198,7 +198,7 @@ class CardsWindow(QMainWindow):
     def showStarChecked(self):
         word_to_insert = self.labword.text()
         # ourWordID = cur.execute(f"SELECT wordID FROM Words WHERE word = '{word_to_insert}'")
-        cur.execute(f"INSERT INTO UserStars(word, userID) VALUES('{word_to_insert}', 'someuser')")
+        cur.execute(f"INSERT INTO UserStars(word, userName) VALUES('{word_to_insert}', 'set')")
         db.commit()
         self.star_0.hide()
         self.star_1.show()
@@ -505,16 +505,12 @@ def toBack():
 
 def darkMode():
     global dark_theme
-    print(dark_theme)
     dark_theme = True
-    print(dark_theme)
 
 
 def lightMode():
     global dark_theme
-    print(dark_theme)
     dark_theme = False
-    print(dark_theme)
 
 
 app = QApplication(sys.argv)
@@ -523,8 +519,8 @@ main_window = MainWindow()
 
 if dark_theme:
     apply_stylesheet(app, theme='dark_blue.xml')
-# if not dark_theme:
-#     apply_stylesheet(app, theme='light_blue.xml')
+if not dark_theme:
+    apply_stylesheet(app, theme='light_blue.xml')
 
 widget.addWidget(main_window)
 widget.setFixedWidth(800)
