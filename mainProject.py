@@ -4,7 +4,6 @@ import random
 import webbrowser
 
 import levels
-import dbHandler
 from dbCheck import *
 from qt_material import apply_stylesheet
 
@@ -12,7 +11,14 @@ from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
 dark_theme = os.getenv("APP_THEME") == "dark"
-
+try:
+    f = open('text.txt', 'x')
+    f.write('guest')
+    f.close()
+except:
+    f = open('text.txt', 'w')
+    f.write('guest')
+    f.close()
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -188,9 +194,15 @@ class CardsWindow(QMainWindow):
 
         if not self.rb_notknow.isChecked():
             self.showStarChecked()
-        self.rb_know.Checked = False
-        self.rb_notknow.Checked = False
+
+        self.btn_prev.setEnabled(False)
+        self.btn_next.setEnabled(False)
+
         self.showStarNull()
+
+        # не срабатывает обнуление, печаль
+        self.rb_know.setChecked(False)
+        self.rb_notknow.setChecked(False)
 
     def showStarNull(self):
         self.star_1.hide()
@@ -198,9 +210,15 @@ class CardsWindow(QMainWindow):
 
     def showStarChecked(self):
         word_to_insert = self.labword.text()
-        # ourWordID = cur.execute(f"SELECT wordID FROM Words WHERE word = '{word_to_insert}'")
-        cur.execute(f"INSERT INTO UserStars(word, userName) VALUES('{word_to_insert}', 'set')")
-        db.commit()
+        f = open('text.txt', 'r')
+        name = f.read()
+        f.close()
+        value = cur.execute(f"SELECT * FROM UserStars WHERE word = '{word_to_insert}'").fetchall()
+        if len(value) == 0:
+            cur.execute(f"INSERT INTO UserStars(word, userName) VALUES('{word_to_insert}', '{name}')")
+            db.commit()
+        else:
+            pass
         self.star_0.hide()
         self.star_1.show()
 
@@ -235,7 +253,7 @@ class LoginWindow(QMainWindow):
         self.to_register.clicked.connect(lambda: toNext(RegisterWindow))
         self.back.clicked.connect(lambda: toBack())
 
-    def check_intput(funct):
+    def check_input(funct):
         def wrapper(self):
             for line_edit in self.base_line_edit:
                 if len(line_edit.text()) == 0:
@@ -253,11 +271,21 @@ class LoginWindow(QMainWindow):
         else:
             toNext(RegisterWindow)
 
-    @check_intput
+    @check_input
     def auth(self):
         name = self.email_login.text()
         passw = self.password_login.text()
         self.check_db.thr_login(name, passw)
+        f = open('text.txt', 'w')
+        f.write(name)
+        f.close()
+
+
+def boolean_signal(value):
+    if value:
+        toBack()
+    else:
+        toNext(MainLogged)
 
 
 class RegisterWindow(QMainWindow):
@@ -268,7 +296,7 @@ class RegisterWindow(QMainWindow):
         self.register_new.clicked.connect(self.reg)
         self.base_line_edit = [self.username_new, self.email_new, self.password_new]
         self.check_db = CheckThread()
-        self.check_db.Boolean_signal.connect(self.boolean_signal)
+        self.check_db.Boolean_signal.connect(boolean_signal)
         self.check_db.my_signal.connect(self.signal_handler)
         self.back.clicked.connect(lambda: toBack())
 
@@ -284,18 +312,15 @@ class RegisterWindow(QMainWindow):
     def signal_handler(self, value):
         QMessageBox.about(self, "* * * * * * * * *", value)
 
-    def boolean_signal(self, value):
-        if value == True:
-            toBack()
-        else:
-            toNext(MainLogged)
-
     @check_input
     def reg(self):
         name = self.username_new.text()
         mail = self.email_new.text()
         passw = self.password_new.text()
         self.check_db.thr_register(name, mail, passw)
+        f = open('text.txt', 'w')
+        f.write(name)
+        f.close()
 
 
 class BaseDictionary(QMainWindow):
@@ -341,8 +366,9 @@ class BaseDictionary(QMainWindow):
     def searchWord(self):
         curs = self.con.cursor()
         word_entered = self.enter_a_word.text()
-        result = curs.execute("SELECT word, translation1, translation2 FROM Words WHERE word = ?", (word_entered,)).fetchone()
+        result = curs.execute("SELECT word, translation1, translation2 FROM Words WHERE word = ?", (word_entered,)).fetchall()
         self.tableWidget.setColumnCount(3)
+        self.tableWidget.setRowCount(len(result))
 
         for i, row in enumerate(result):
             for j, col in enumerate(row):
@@ -393,21 +419,18 @@ class AdvDictionary(QMainWindow):
                 self.tableWidget.setItem(i, j, item)
 
     def searchWord(self):
-        res = "SELECT * FROM Words WHERE word = ?"
+        res = "SELECT word, translation1, translation2, imageLink, sentence FROM Words WHERE word = ?"
         word_entered = self.enter_a_word.text()
         curs = self.con.cursor()
         result = curs.execute(res, (word_entered,)).fetchall()
+
+        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setRowCount(1)
+
         for i, row in enumerate(result):
-            item = QTableWidgetItem(row[2])
-            self.tableWidget.setItem(i, 2, item)
-        pass
-
-
-def boolean_signal(value):
-    if value == True:
-        pass
-    else:
-        pass
+            for j, col in enumerate(row):
+                item = QTableWidgetItem(str(col))
+                self.tableWidget.setItem(i, j, item)
 
 
 class AddingWords(QMainWindow):
@@ -464,7 +487,7 @@ class ChangingWords(QMainWindow):
 
     @staticmethod
     def boolean_signal(value):
-        if value == True:
+        if value:
             pass
         else:
             pass
@@ -503,16 +526,6 @@ def toBack():
     if widget.count() > 1:
         widget.setCurrentIndex(widget.currentIndex() - 1)
         widget.removeWidget(widget.widget(widget.currentIndex() + 1))
-
-
-def darkMode():
-    global dark_theme
-    dark_theme = True
-
-
-def lightMode():
-    global dark_theme
-    dark_theme = False
 
 
 app = QApplication(sys.argv)

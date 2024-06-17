@@ -21,8 +21,6 @@ class level1_sub(QMainWindow):
         super(level1_sub, self).__init__()
         loadUi("quiz.ui", self)
 
-
-
         self.next.clicked.connect(lambda: self.set_text(self.dictOFWords))
         self.prev.clicked.connect(lambda: self.set_text(self.dictOFWords))
         cur.execute("SELECT * FROM Words WHERE categoryID = 1")
