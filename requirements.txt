@@ -16,3 +16,5 @@ python-dateutil==2.9.0.post0
 qt-material==2.14
 scipy==1.13.1
 six==1.16.0
+
+mesh~=1.0.0a1

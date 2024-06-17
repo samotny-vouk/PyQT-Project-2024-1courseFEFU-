@@ -35,43 +35,43 @@
     </property>
     <layout class="QGridLayout" name="gridLayout">
      <item row="5" column="0">
-      <widget class="QRadioButton" name="radioButton_3">
+      <widget class="QRadioButton" name="opt_5">
        <property name="text">
-        <string>RadioButton</string>
+        <string>fifth option</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0">
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="opt_3">
        <property name="text">
-        <string>RadioButton</string>
+        <string>third option</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QRadioButton" name="radioButton_4">
+      <widget class="QRadioButton" name="opt_4">
        <property name="text">
-        <string>RadioButton</string>
+        <string>forth option</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="opt_1">
        <property name="text">
-        <string>RadioButton</string>
+        <string>first option</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QRadioButton" name="radioButton_5">
+      <widget class="QRadioButton" name="opt_2">
        <property name="text">
-        <string>RadioButton</string>
+        <string>second option</string>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="word">
     <property name="geometry">
      <rect>
       <x>250</x>
@@ -81,7 +81,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>word</string>
     </property>
    </widget>
    <widget class="QPushButton" name="next">

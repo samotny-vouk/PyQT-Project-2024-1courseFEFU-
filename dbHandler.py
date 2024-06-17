@@ -47,7 +47,7 @@ def new_word(word, translate1, translate2, sav, sentence, imgLink, signal, bool_
     else:
         bool_signal.emit(True)
         signal.emit("The insertion completed")
-        cur.execute(f"INSERT INTO Words(word, translation1, translation2, category, sentence, imageLink) VALUES('{word}', '{translate1}', '{translate2}', '{sav}', '{sentence}', '{imgLink}')")
+        cur.execute(f"INSERT INTO Words(word, translation1, translation2, categoryID, sentence, imageLink) VALUES('{word}', '{translate1}', '{translate2}', '{sav}', '{sentence}', '{imgLink}')")
         db.commit()
 
 
@@ -56,7 +56,7 @@ def change_word(word, translate1, translate2, sav, sentence, imgLink, signal, bo
     value = cur.fetchall()
 
     if value:
-        cur.execute(f"UPDATE Words SET translation1 = '{translate1}', translation2 = '{translate2}', category = '{sav}', sentence = '{sentence}', imageLink = '{imgLink}' WHERE word = '{word}'")
+        cur.execute(f"UPDATE Words SET translation1 = '{translate1}', translation2 = '{translate2}', categoryID = '{sav}', sentence = '{sentence}', imageLink = '{imgLink}' WHERE word = '{word}'")
         db.commit()
         bool_signal.emit(True)
         signal.emit("The update completed")

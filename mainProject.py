@@ -58,7 +58,7 @@ class StartWindow(QMainWindow):
         self.adjectives.clicked.connect(lambda: webbrowser.open('https://en.wikipedia.org/wiki/Adjective'))
         self.verbs.clicked.connect(lambda: webbrowser.open('https://en.wikipedia.org/wiki/Verb'))
 
-        self.sub_1.clicked.connect(lambda: toNext(Level_1))
+        self.sub_1.clicked.connect(lambda: toNext(levels.level1_sub))
         self.sub_2.clicked.connect(lambda: toNext(levels.level2_sub))
         self.sub_3.clicked.connect(lambda: toNext(levels.level3_sub))
         self.sub_4.clicked.connect(lambda: toNext(levels.level4_sub))
@@ -79,69 +79,70 @@ class StartWindow(QMainWindow):
         self.back.clicked.connect(lambda: toBack())
 
 
-class Level_1(QMainWindow):
-    def __init__(self):
-        super(Level_1, self).__init__()
-        loadUi("level_1_1.ui", self)
-        cur.execute("SELECT * FROM Words WHERE categoryID = 1")
-        rows = cur.fetchall()
-        self.back.clicked.connect(lambda: toBack())
-
-        self.dictOFWords = dict()
-        for row in rows:
-            key = row[0]
-            values = (row[1], row[2])
-            self.dictOFWords[key] = values
-        self.set_text(self.dictOFWords)
-        self.buttonGroup.buttonClicked.connect(lambda btn: self.checking_truth(btn))
-
-    def checking_truth(self, rb):
-        selected_answer = rb.text()
-
-        for key, val in self.dictOFWords.items():
-            if val[1] == selected_answer:
-                question = val[0]
-
-                if question == self.word.text():
-                    self.buttonGroup.setExclusive(False)
-                    rb.setChecked(False)
-                    self.buttonGroup.setExclusive(True)
-                    selected_answer = ''
-                    self.set_text(self.dictOFWords)
-                    print('Correct')
-                    return
-
-        QMessageBox.about(self, "Notification", "Неверно")
-        print('Incorrect')
-
-    def set_text(self, dictWithWord):
-        keys = list(dictWithWord.keys())
-        random_key = random.choice(keys)
-        question = dictWithWord[random_key][0]
-        answer = dictWithWord[random_key][1]
-        rand = random.randint(0, 3)
-
-        item = self.layoutWithAnswer.itemAtPosition(rand, 0)
-        if item:
-            label_answ = item.widget()
-            label_answ.setText(answer)
-        self.word.setText(question)
-
-        answers = []
-        for i in range(0, 4):
-            if i == rand:
-                answers.append(answer)
-            else:
-                label_answ_text = label_answ.text() if 'label_answ' in locals() else ''
-                other_answer = dictWithWord[random.choice(keys)][1]
-                while other_answer == answer or other_answer in answers or other_answer == label_answ_text:
-                    other_answer = dictWithWord[random.choice(keys)][1]
-                answers.append(other_answer)
-
-        for i in range(4):
-            item = self.layoutWithAnswer.itemAt(i)
-            if item and item.widget():
-                item.widget().setText(answers[i])
+# class Level(QMainWindow):
+#     def __init__(self):
+#         super(Level, self).__init__()
+#         loadUi("level_1_1.ui", self)
+#
+#         cur.execute("SELECT * FROM Words WHERE categoryID = 1")
+#         rows = cur.fetchall()
+#         self.back.clicked.connect(lambda: toBack())
+#
+#         self.dictOFWords1 = dict()
+#         for row in rows:
+#             key = row[0]
+#             values = (row[1], row[2])
+#             self.dictOFWords1[key] = values
+#         # self.set_text(self.dictOFWords)
+#         self.buttonGroup.buttonClicked.connect(lambda btn: self.checking_truth(btn))
+#
+#     def checking_truth(self, rb):
+#         selected_answer = rb.text()
+#
+#         for key, val in self.dictOFWords1.items():
+#             if val[1] == selected_answer:
+#                 question = val[0]
+#
+#                 if question == self.word.text():
+#                     self.buttonGroup.setExclusive(False)
+#                     rb.setChecked(False)
+#                     self.buttonGroup.setExclusive(True)
+#                     # selected_answer = ''
+#                     self.set_text(self.dictOFWords)
+#                     print('Correct')
+#                     return
+#
+#         QMessageBox.about(self, "* * * * * * * * *", "Неверно")
+#         print('Incorrect')
+#
+#     def set_text(self, dictWithWord):
+#         keys = list(dictWithWord.keys())
+#         random_key = random.choice(keys)
+#         question = dictWithWord[random_key][0]
+#         answer = dictWithWord[random_key][1]
+#         rand = random.randint(0, 3)
+#
+#         item = self.layoutWithAnswer.itemAtPosition(rand, 0)
+#         if item:
+#             label_answ = item.widget()
+#             label_answ.setText(answer)
+#         self.word.setText(question)
+#
+#         answers = []
+#         for i in range(0, 4):
+#             if i == rand:
+#                 answers.append(answer)
+#             else:
+#                 label_answ_text = label_answ.text() if 'label_answ' in locals() else ''
+#                 other_answer = dictWithWord[random.choice(keys)][1]
+#                 while other_answer == answer or other_answer in answers or other_answer == label_answ_text:
+#                     other_answer = dictWithWord[random.choice(keys)][1]
+#                 answers.append(other_answer)
+#
+#         for i in range(4):
+#             item = self.layoutWithAnswer.itemAt(i)
+#             if item and item.widget():
+#                 item.widget().setText(answers[i])
 
 
 class CardsWindow(QMainWindow):
@@ -149,51 +150,74 @@ class CardsWindow(QMainWindow):
         super(CardsWindow, self).__init__()
         loadUi("flashcards.ui", self)
 
-        self.btn_prev.setEnabled(False)
-        self.btn_next.setEnabled(False)
+        cur.execute("SELECT * FROM Words WHERE categoryID = 1")
+        rows = cur.fetchall()
+        self.dictOFWords = dict()
+
+        for row in rows:
+            key = row[0]
+            values = (row[1], row[2])
+            self.dictOFWords[key] = values
+        self.set_text(self.dictOFWords)
+
         self.labshowbtn.hide()
         self.star_1.hide()
         self.star_0.clicked.connect(self.showStarChecked)
         self.star_1.clicked.connect(self.showStarNull)
         self.back.clicked.connect(lambda: toBack())
 
-        if self.rb_know.isChecked() or self.rb_notknow.isChecked():
-            self.btn_prev.setEnabled(True)
-            self.btn_next.setEnabled(True)
+        self.btn_prev.setEnabled(False)
+        self.btn_next.setEnabled(False)
+        # if self.rb_know.isChecked() or self.rb_notknow.isChecked():
+        #     self.btn_prev.setEnabled(True)
+        #     self.btn_next.setEnabled(True)
 
         self.btn_show.clicked.connect(self.showMeaning)
+        self.btn_prev.clicked.connect(lambda: self.set_text(self.dictOFWords))
+        self.btn_next.clicked.connect(lambda: self.set_text(self.dictOFWords))
+
+    def set_text(self, dictWithWord):
+        keys = list(dictWithWord.keys())
+        random_key = random.choice(keys)
+        question = dictWithWord[random_key][0]
+        answer = dictWithWord[random_key][1]
+        self.labword.setText(question)
+        self.labshowbtn.setText(answer)
+        self.btn_show.show()
+
+        if not self.rb_notknow.isChecked():
+            self.showStarChecked()
+        self.rb_know.Checked = False
+        self.rb_notknow.Checked = False
+        self.showStarNull()
 
     def showStarNull(self):
         self.star_1.hide()
         self.star_0.show()
 
     def showStarChecked(self):
+        word_to_insert = self.labword.text()
+        # ourWordID = cur.execute(f"SELECT wordID FROM Words WHERE word = '{word_to_insert}'")
+        cur.execute(f"INSERT INTO UserStars(word, userID) VALUES('{word_to_insert}', 'someuser')")
+        db.commit()
         self.star_0.hide()
         self.star_1.show()
 
     def showMeaning(self):
         self.labshowbtn.show()
         self.btn_show.hide()
+        self.btn_prev.setEnabled(True)
+        self.btn_next.setEnabled(True)
 
 
 class SetWindow(QMainWindow):
     def __init__(self):
         super(SetWindow, self).__init__()
         loadUi("settings.ui", self)
-        self.dark_mode.clicked.connect(self.darkMode)
-        self.light_mode.clicked.connect(self.lightMode)
+        self.dark_mode.clicked.connect(lambda: darkMode())
+        self.light_mode.clicked.connect(lambda: lightMode())
 
         self.back.clicked.connect(lambda: toBack())
-
-    @staticmethod
-    def darkMode():
-        global dark_theme
-        dark_theme = True
-
-    @staticmethod
-    def lightMode():
-        global dark_theme
-        dark_theme = False
 
 
 class LoginWindow(QMainWindow):
@@ -301,10 +325,10 @@ class BaseDictionary(QMainWindow):
     def select(self):
         req = "SELECT * FROM Words WHERE categoryID = ?"
 
-        genre = self.params.get(self.comboBox.currentText())
-        genre_1 = int(genre)
+        category = self.params.get(self.comboBox.currentText())
+        cat_1 = int(category)
         curs = self.con.cursor()
-        result = curs.execute(req, (genre_1,)).fetchall()
+        result = curs.execute(req, (cat_1,)).fetchall()
         self.tableWidget.setRowCount(len(result))
         self.tableWidget.setColumnCount(7)
         for i, row in enumerate(result):
@@ -313,11 +337,11 @@ class BaseDictionary(QMainWindow):
                 self.tableWidget.setItem(i, j, item)
 
     def searchWord(self):
-        res = "SELECT * FROM Words WHERE word LIKE ?"
-        word_entered = self.enter_a_word.text()
         curs = self.con.cursor()
-        result = curs.execute(res, (word_entered,)).fetchall()
-        self.tableWidget.setColumnCount(7)
+        word_entered = self.enter_a_word.text()
+        result = curs.execute("SELECT word, translation1, translation2 FROM Words WHERE word = ?", (word_entered,)).fetchone()
+        self.tableWidget.setColumnCount(3)
+
         for i, row in enumerate(result):
             for j, col in enumerate(row):
                 item = QTableWidgetItem(str(col))
@@ -376,25 +400,27 @@ class AdvDictionary(QMainWindow):
             self.tableWidget.setItem(i, 2, item)
         pass
 
+
+def boolean_signal(value):
+    if value == True:
+        pass
+    else:
+        pass
+
+
 class AddingWords(QMainWindow):
     def __init__(self):
         super(AddingWords, self).__init__()
         loadUi("adding_new_word.ui", self)
 
         self.check_db = CheckThread()
-        self.check_db.Boolean_signal.connect(self.boolean_signal)
+        self.check_db.Boolean_signal.connect(boolean_signal)
         self.check_db.my_signal.connect(self.signal_handler)
         self.add_word.clicked.connect(self.auth)
         self.back.clicked.connect(lambda: toBack())
 
     def signal_handler(self, value):
         QMessageBox.about(self, "* * * * * * * * *", value)
-
-    def boolean_signal(self, value):
-        if value == True:
-            pass
-        else:
-            pass
 
     def auth(self):
         word = self.word_input.text()
@@ -434,7 +460,8 @@ class ChangingWords(QMainWindow):
     def signal_handler(self, value):
         QMessageBox.about(self, "* * * * * * * * *", value)
 
-    def boolean_signal(self, value):
+    @staticmethod
+    def boolean_signal(value):
         if value == True:
             pass
         else:
@@ -476,12 +503,28 @@ def toBack():
         widget.removeWidget(widget.widget(widget.currentIndex() + 1))
 
 
+def darkMode():
+    global dark_theme
+    print(dark_theme)
+    dark_theme = True
+    print(dark_theme)
+
+
+def lightMode():
+    global dark_theme
+    print(dark_theme)
+    dark_theme = False
+    print(dark_theme)
+
+
 app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 main_window = MainWindow()
 
 if dark_theme:
-    apply_stylesheet(app, theme='dark_teal.xml')
+    apply_stylesheet(app, theme='dark_blue.xml')
+if not dark_theme:
+    apply_stylesheet(app, theme='light_blue.xml')
 
 widget.addWidget(main_window)
 widget.setFixedWidth(800)
