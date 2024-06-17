@@ -10,7 +10,7 @@ from qt_material import apply_stylesheet
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
-dark_theme = False
+dark_theme = True
 
 
 class MainWindow(QMainWindow):
