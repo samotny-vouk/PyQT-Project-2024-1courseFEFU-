@@ -59,22 +59,22 @@ class StartWindow(QMainWindow):
         self.verbs.clicked.connect(lambda: webbrowser.open('https://en.wikipedia.org/wiki/Verb'))
 
         self.sub_1.clicked.connect(lambda: toNext(levels.level1_sub))
-        self.sub_2.clicked.connect(lambda: toNext(levels.level2_sub))
-        self.sub_3.clicked.connect(lambda: toNext(levels.level3_sub))
-        self.sub_4.clicked.connect(lambda: toNext(levels.level4_sub))
-        self.sub_5.clicked.connect(lambda: toNext(levels.level5_sub))
+        self.sub_2.clicked.connect(lambda: toNext(levels.level1_sub))
+        self.sub_3.clicked.connect(lambda: toNext(levels.level1_sub))
+        self.sub_4.clicked.connect(lambda: toNext(levels.level1_sub))
+        self.sub_5.clicked.connect(lambda: toNext(levels.level1_sub))
 
         self.adj_1.clicked.connect(lambda: toNext(levels.level1_adj))
-        self.adj_2.clicked.connect(lambda: toNext(levels.level2_adj))
-        self.adj_3.clicked.connect(lambda: toNext(levels.level3_adj))
-        self.adj_4.clicked.connect(lambda: toNext(levels.level4_adj))
-        self.adj_5.clicked.connect(lambda: toNext(levels.level5_adj))
+        self.adj_2.clicked.connect(lambda: toNext(levels.level1_adj))
+        self.adj_3.clicked.connect(lambda: toNext(levels.level1_adj))
+        self.adj_4.clicked.connect(lambda: toNext(levels.level1_adj))
+        self.adj_5.clicked.connect(lambda: toNext(levels.level1_adj))
 
         self.verb_1.clicked.connect(lambda: toNext(levels.level1_verb))
-        self.verb_2.clicked.connect(lambda: toNext(levels.level2_verb))
-        self.verb_3.clicked.connect(lambda: toNext(levels.level3_verb))
-        self.verb_4.clicked.connect(lambda: toNext(levels.level4_verb))
-        self.verb_5.clicked.connect(lambda: toNext(levels.level5_verb))
+        self.verb_2.clicked.connect(lambda: toNext(levels.level1_verb))
+        self.verb_3.clicked.connect(lambda: toNext(levels.level1_verb))
+        self.verb_4.clicked.connect(lambda: toNext(levels.level1_verb))
+        self.verb_5.clicked.connect(lambda: toNext(levels.level1_verb))
 
         self.back.clicked.connect(lambda: toBack())
 
@@ -523,8 +523,8 @@ main_window = MainWindow()
 
 if dark_theme:
     apply_stylesheet(app, theme='dark_blue.xml')
-if not dark_theme:
-    apply_stylesheet(app, theme='light_blue.xml')
+# if not dark_theme:
+#     apply_stylesheet(app, theme='light_blue.xml')
 
 widget.addWidget(main_window)
 widget.setFixedWidth(800)
