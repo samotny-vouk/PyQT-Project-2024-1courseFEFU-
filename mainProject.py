@@ -1,3 +1,4 @@
+import os
 import sys
 import random
 import webbrowser
@@ -10,7 +11,7 @@ from qt_material import apply_stylesheet
 from PyQt5.uic import loadUi
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox
-dark_theme = False
+dark_theme = os.getenv("APP_THEME") == "dark"
 
 
 class MainWindow(QMainWindow):
@@ -79,70 +80,70 @@ class StartWindow(QMainWindow):
         self.back.clicked.connect(lambda: toBack())
 
 
-# class Level(QMainWindow):
-#     def __init__(self):
-#         super(Level, self).__init__()
-#         loadUi("level_1_1.ui", self)
-#
-#         cur.execute("SELECT * FROM Words WHERE categoryID = 1")
-#         rows = cur.fetchall()
-#         self.back.clicked.connect(lambda: toBack())
-#
-#         self.dictOFWords1 = dict()
-#         for row in rows:
-#             key = row[0]
-#             values = (row[1], row[2])
-#             self.dictOFWords1[key] = values
-#         # self.set_text(self.dictOFWords)
-#         self.buttonGroup.buttonClicked.connect(lambda btn: self.checking_truth(btn))
-#
-#     def checking_truth(self, rb):
-#         selected_answer = rb.text()
-#
-#         for key, val in self.dictOFWords1.items():
-#             if val[1] == selected_answer:
-#                 question = val[0]
-#
-#                 if question == self.word.text():
-#                     self.buttonGroup.setExclusive(False)
-#                     rb.setChecked(False)
-#                     self.buttonGroup.setExclusive(True)
-#                     # selected_answer = ''
-#                     self.set_text(self.dictOFWords)
-#                     print('Correct')
-#                     return
-#
-#         QMessageBox.about(self, "* * * * * * * * *", "Неверно")
-#         print('Incorrect')
-#
-#     def set_text(self, dictWithWord):
-#         keys = list(dictWithWord.keys())
-#         random_key = random.choice(keys)
-#         question = dictWithWord[random_key][0]
-#         answer = dictWithWord[random_key][1]
-#         rand = random.randint(0, 3)
-#
-#         item = self.layoutWithAnswer.itemAtPosition(rand, 0)
-#         if item:
-#             label_answ = item.widget()
-#             label_answ.setText(answer)
-#         self.word.setText(question)
-#
-#         answers = []
-#         for i in range(0, 4):
-#             if i == rand:
-#                 answers.append(answer)
-#             else:
-#                 label_answ_text = label_answ.text() if 'label_answ' in locals() else ''
-#                 other_answer = dictWithWord[random.choice(keys)][1]
-#                 while other_answer == answer or other_answer in answers or other_answer == label_answ_text:
-#                     other_answer = dictWithWord[random.choice(keys)][1]
-#                 answers.append(other_answer)
-#
-#         for i in range(4):
-#             item = self.layoutWithAnswer.itemAt(i)
-#             if item and item.widget():
-#                 item.widget().setText(answers[i])
+class Level(QMainWindow):
+    def __init__(self):
+        super(Level, self).__init__()
+        loadUi("level_1_1.ui", self)
+
+        cur.execute("SELECT * FROM Words WHERE categoryID = 1")
+        rows = cur.fetchall()
+        self.back.clicked.connect(lambda: toBack())
+
+        self.dictOFWords1 = dict()
+        for row in rows:
+            key = row[0]
+            values = (row[1], row[2])
+            self.dictOFWords1[key] = values
+        # self.set_text(self.dictOFWords)
+        self.buttonGroup.buttonClicked.connect(lambda btn: self.checking_truth(btn))
+
+    def checking_truth(self, rb):
+        selected_answer = rb.text()
+
+        for key, val in self.dictOFWords1.items():
+            if val[1] == selected_answer:
+                question = val[0]
+
+                if question == self.word.text():
+                    self.buttonGroup.setExclusive(False)
+                    rb.setChecked(False)
+                    self.buttonGroup.setExclusive(True)
+                    # selected_answer = ''
+                    self.set_text(self.dictOFWords)
+                    print('Correct')
+                    return
+
+        QMessageBox.about(self, "* * * * * * * * *", "Неверно")
+        print('Incorrect')
+
+    def set_text(self, dictWithWord):
+        keys = list(dictWithWord.keys())
+        random_key = random.choice(keys)
+        question = dictWithWord[random_key][0]
+        answer = dictWithWord[random_key][1]
+        rand = random.randint(0, 3)
+
+        item = self.layoutWithAnswer.itemAtPosition(rand, 0)
+        if item:
+            label_answ = item.widget()
+            label_answ.setText(answer)
+        self.word.setText(question)
+
+        answers = []
+        for i in range(0, 4):
+            if i == rand:
+                answers.append(answer)
+            else:
+                label_answ_text = label_answ.text() if 'label_answ' in locals() else ''
+                other_answer = dictWithWord[random.choice(keys)][1]
+                while other_answer == answer or other_answer in answers or other_answer == label_answ_text:
+                    other_answer = dictWithWord[random.choice(keys)][1]
+                answers.append(other_answer)
+
+        for i in range(4):
+            item = self.layoutWithAnswer.itemAt(i)
+            if item and item.widget():
+                item.widget().setText(answers[i])
 
 
 class CardsWindow(QMainWindow):
@@ -214,8 +215,9 @@ class SetWindow(QMainWindow):
     def __init__(self):
         super(SetWindow, self).__init__()
         loadUi("settings.ui", self)
-        self.dark_mode.clicked.connect(lambda: darkMode())
-        self.light_mode.clicked.connect(lambda: lightMode())
+        self.dark_mode.clicked.connect(lambda: apply_stylesheet(app, theme='dark_blue.xml'))
+        self.light_mode.clicked.connect(lambda: apply_stylesheet(app, theme='light_blue.xml'))
+        self.default_2.clicked.connect(lambda: apply_stylesheet(app, theme='default'))
 
         self.back.clicked.connect(lambda: toBack())
 
@@ -517,10 +519,10 @@ app = QApplication(sys.argv)
 widget = QtWidgets.QStackedWidget()
 main_window = MainWindow()
 
-if dark_theme:
-    apply_stylesheet(app, theme='dark_blue.xml')
-if not dark_theme:
-    apply_stylesheet(app, theme='light_blue.xml')
+# if dark_theme:
+#     apply_stylesheet(app, theme='dark_blue.xml')
+# if not dark_theme:
+#     apply_stylesheet(app, theme='light_blue.xml')
 
 widget.addWidget(main_window)
 widget.setFixedWidth(800)

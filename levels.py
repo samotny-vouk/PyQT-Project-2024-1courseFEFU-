@@ -4,8 +4,8 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QMessageBox, QButtonGroup
 import sqlite3
 
-from PIL import Image
-from urllib.request import urlopen
+# from PIL import Image
+# from urllib.request import urlopen
 # url = "https://i.pinimg.com/236x/24/15/21/24152197af38deb718eb730992d441d0.jpg"
 # try:
 #     image = Image.open(urlopen(url))
